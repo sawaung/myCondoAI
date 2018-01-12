@@ -1,0 +1,66 @@
+
+<ActionBar class="action-bar">
+    <NavigationButton text="" android.systemIcon="ic_menu_back" (tap)="onNavBtnTap()"></NavigationButton>
+        
+    <ActionItem (tap)="onEditFeed()" [visibility]="EDIT_FEED ? 'visible' : 'collapse'"
+        ios.systemIcon="2" 
+        ios.position="right"
+        android.systemIcon="ic_menu_edit" 
+        android.position="actionBar"></ActionItem>
+
+    <Label class="action-bar-title" text="myFeed detail"></Label>
+
+</ActionBar>
+
+<GridLayout #container class="page page-content" tkMainContent rows="*,60" >
+ 
+    <WebView [visibility]="'collapsed'" width="100%" id="myWebViewTemp" [src]="description" ></WebView>   
+
+    <ScrollView orientation = "vertical" row="0">      
+           
+                                   
+
+           <StackLayout orientation="vertical" *ngIf="feedInfoDetail" > 
+                           
+                   <StackLayout orientation="vertical"  class = "m-x-10 m-t-10">
+                       <Label id="feed_category_name" [text]="feedInfoDetail.Feed_Category_Name"></Label>
+                       <Label class="h3" id="feed_title" [text]="feedInfoDetail.Title"></Label>
+                       
+                       <Label id="feed_type_name" [text]="feedInfoDetail.Posted_Date | date:'medium'" class = "m-b-10"></Label>
+                   </StackLayout> 
+
+                   
+                   <GridLayout rows="auto" columns="auto" >
+                        <WebView width="100%" height="{{getWebViewHeight()}}" row="0" col="0" id="myWebView" [src]="description" ></WebView>   
+                    </GridLayout>
+
+                   <StackLayout orientation="vertical" >
+                   
+                       <RadListView [items]="feedInfoDetail.MC_Feed_Files" width="100%" ios:height="{{radListViewHeight}}">
+                            <ListViewGridLayout tkListViewLayout scrollDirection="Vertical" ios:itemHeight="150" spanCount="2"></ListViewGridLayout> 
+                            <ng-template tkListItemTemplate let-item="item" >
+                                    <GridLayout rows="*" columns="auto">
+                                       <StackLayout orientation="horizontal">
+                                           <Image [src]="item.Small_File_Path" stretch="aspectFill" width = "130" height = "130" class = "btn btn-rounded-sm" (tap) = "onImageTap(item)"></Image>
+                           
+                                       </StackLayout>
+                                   </GridLayout>
+                               </ng-template>
+                           </RadListView>
+                   </StackLayout>
+           </StackLayout>
+        </ScrollView> 
+
+        <ios>
+            <StackLayout row="1" orientation="horizontal" >
+                <Button text= "Post" [visibility]="feedInfoDetail.Post_Status == 0 && IsAccess('POST_FEED') ? 'visible' : 'collapsed'" (tap)="changeFeedStatus(feedInfoDetail.Feed_Id,'POST')" width="35%" class="body Roboto-Medium" textWrap="true" textAlignment="center" style="color:gray;"></Button>
+                <Button text= "Unpost" [visibility]="feedInfoDetail.Post_Status == 1 && IsAccess('UNPOST_FEED') ? 'visible' : 'collapsed'" (tap)="changeFeedStatus(feedInfoDetail.Feed_Id,'UNPOST') ? 'visible' : 'collapsed'" width="35%" class="body Roboto-Medium" textWrap="true" textAlignment="center" style="color:gray;"></Button>
+
+                <Button text="Post And Notify" [visibility]="feedInfoDetail.Post_Status == 0 && IsAccess('POST_FEED') ? 'visible' : 'collapsed'" (tap)="changeFeedStatus(feedInfoDetail.Feed_Id,'NOTIFY') ? 'visible' : 'collapsed'" width="35%" class="body Roboto-Medium" textWrap="true" textAlignment="center" style="color:gray;"></Button>
+                <Button text="Notify" [visibility]="feedInfoDetail.Post_Status == 1 && feedInfoDetail.isBlocked == 0 && IsAccess('POST_FEED') ? 'visible' : 'collapsed'" (tap)="changeFeedStatus(feedInfoDetail.Feed_Id,'NOTIFY')" width="35%" class="body Roboto-Medium" textWrap="true" textAlignment="center" style="color:gray;"></Button>
+
+                <Button text= "Archive" [visibility]="feedInfoDetail.isBlocked == 0 && IsAccess('DELETE_FEED') ? 'visible' : 'collapsed'" (tap)="changeFeedStatus(feedInfoDetail.Feed_Id,'ARCHIVE')" width="35%" class="body Roboto-Medium" textWrap="true" textAlignment="center" style="color:gray;"></Button>
+            </StackLayout> 
+        </ios> 
+
+</GridLayout>

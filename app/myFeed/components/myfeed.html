@@ -1,0 +1,73 @@
+
+
+<ActionBar class="action-bar">
+    <NavigationButton text="Go Back" android.systemIcon="ic_menu_back" (tap)="onNavBtnTap()"></NavigationButton>
+    <Label class="action-bar-title" text="myFeed edit"></Label>
+</ActionBar>
+
+<GridLayout #page class="page page-content" tkMainContent rows="*,60" style = "background-color:#f5f5f5;" >
+    <ActivityIndicator row="0" [busy]="isLoading" [visibility]="isLoading ? 'visible' : 'collapse'" horizontalAlignment="center" verticalAlignment="center" ></ActivityIndicator>   
+    
+    <ScrollView  #scrollview orientation="vertical" row = "0" [visibility]="isLoading ? 'collapse' : 'visible'">
+    
+        <StackLayout orientation="vertical" *ngIf="feedInfoDetail">       
+            <GridLayout class = "cardview m-x-10 m-t-10" rows="auto,auto,auto,auto">
+
+                <GridLayout  row = "0" rows="auto" cols ="*,*">
+                    <StackLayout orientation = "vertical" class="feedType" row="0" col = "0"  width="50%" horizontalAlignment="left">
+                        <label class="subheader Roboto-Medium m-l-5 m-t-5" text = "Feed Type:"></label>
+                        <DropDown class="body Roboto-Regular m-l-5 m-b-5" id = "dropDownFeedType" backroundColor="red" colSpan="2"
+                         (selectedIndexChanged)="onchangeFeedType($event)"
+                        (opened)="onopen()" (closed)="onclose()" name='ddlfeedtype'></DropDown>
+                    </StackLayout> 
+
+                    <StackLayout orientation = "vertical" class="feedCategory" row="0" col = "1" width="50%" horizontalAlignment="right">
+                        <label class="subheader Roboto-Medium m-l-5 m-t-5" text = "Feed Category:"></label>
+                        <DropDown class="body Roboto-Regular m-l-5 m-b-5" id = "dropDownFeedCategory" backroundColor="red" colSpan="2"
+                        (selectedIndexChanged)="onchangeFeedCategory($event)" name='ddlfeedcategory'
+                        (opened)="onopen()" (closed)="onclose()"></DropDown>
+                    </StackLayout> 
+                </GridLayout>
+
+                <!-- <TextView class="header Roboto-Regular m-t-20 m-x-5" hint="Subject"  [(ngModel)]="feedInfoDetail.Title" textWrap="true" row = "1"></TextView> -->
+                
+                <TextField  class="header Roboto-Regular m-t-20 m-x-5" hint="Title" autocapitalizationType="none" name="txtTitle" [(ngModel)]="feedInfoDetail.Title" row = "1"></TextField>
+                <!-- webview -->
+                <!-- <StackLayout orientation = "vertical" row = "3"  class = "m-x-5"7> -->
+                <GridLayout rows = "auto,*" row="2" >
+                    
+                    
+                    <StackLayout orientation = "vertical" row = "0"  class = "m-l-5 m-r-5">
+                        <Label class="body Roboto-Regular" text="Description" ></Label>
+                        <WebView  #webView width="100%" ios:height="250" class = "m-t-10"></WebView>   
+                    </StackLayout>       
+                  
+                    <RadListView row = "1" [items]="arrFeedFileList" width="100%" ios:height="{{radListViewHeight}}" temDeleteAnimation="Default">
+                        <ListViewGridLayout tkListViewLayout scrollDirection="Vertical" ios:itemHeight="150" spanCount="2"></ListViewGridLayout>
+                            <ng-template tkListItemTemplate let-item="item" >
+                                <GridLayout rows="*" columns="auto">
+                                    <AbsoluteLayout>
+                                        <Image [src]="item.Small_File_Path" stretch="aspectFill" width = "150" height = "150"  spanCount="2" class = "btn btn-rounded-sm" (tap) = "onImageTap(item)"></Image>
+                                        <Image src="res://ic_image_remove" align = "right" width = "30" height = "30" (tap) = "onImageRemoveTap(item.File_Id)"></Image>
+                                    </AbsoluteLayout>
+                                </GridLayout>
+                            </ng-template>
+
+                    </RadListView>  
+                </GridLayout>
+
+                <!-- </StackLayout> -->
+
+                <GridLayout row = "3" rows="auto" columns = "auto,auto"  class = "m-y-10 m-x-5">
+                    <Button  text = "Upload Image" textWrap="true" width="50%"  row="0" col="0" (tap) = "onClickUploadImage()"></Button>
+                    <Button text = "Upload File" textWrap="true" width="50%"   row="0" col="1" (tap) = "onClickUploadFile()"></Button>
+                </GridLayout>
+            </GridLayout>
+        </StackLayout>
+
+    </ScrollView>
+
+    <StackLayout row="1" orientation="horizontal" [visibility]="isLoading ? 'collapse' : 'visible'">
+        <Button class="body Roboto-Medium" [text]="createOrUpdate === 'new' ? 'CREATE': 'UPDATE'" textWrap="true" (tap)="showDialog()" width="100%" textAlignment="center" style="background-color:#913996;color:#f5f5f5;"></Button>
+    </StackLayout>
+</GridLayout> 

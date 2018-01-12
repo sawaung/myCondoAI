@@ -1,0 +1,110 @@
+// Place any CSS rules you want to apply on both iOS and Android here.
+// This is where the vast majority of your CSS code goes.
+// Font icon class
+.fa {
+    font-family: "FontAwesome";
+ }
+ // Common page class
+ .page-content {
+     .page-placeholder {
+         color: $page-icon-color;
+         font-size: $page-content-placeholder-font-size;
+         vertical-align: center;
+         horizontal-align: center;
+     }
+ 
+     .page-icon {
+         font-size: 72;
+         vertical-align: top;
+         horizontal-align: center;
+         color: $page-icon-color;
+         margin-top: 20%;
+     }
+ }
+ 
+ //Action bar
+ ActionBar .action-bar-title {
+     horizontal-align: left;
+ }
+
+ //material
+ .Roboto-Regular{
+     font-family: Roboto-Regular;
+ }
+
+ .Roboto-Bold{
+    font-family: Roboto-Bold;
+}
+
+.Roboto-BoldItalic{
+    font-family: Roboto-BoldItalic;
+}
+
+.Roboto-Italic{
+    font-family: Roboto-Italic;
+}
+
+.Roboto-Light{
+    font-family: Roboto-Light;
+}
+
+.Roboto-LightItalic{
+    font-family: Roboto-LightItalic;
+}
+.Roboto-Medium{
+    font-family: Roboto-Medium;
+}
+.Roboto-MediumItalic{
+    font-family: Roboto-MediumItalic;
+}
+.Roboto-Thin{
+    font-family: Roboto-Thin;
+}
+.Roboto-ThinItalic{
+    font-family: Roboto-ThinItalic;
+}
+.Roboto-Black{
+    font-family: Roboto-Black;
+}
+.Roboto-BlackItalic{
+    font-family: Roboto-BlackItalic;
+}
+
+.cardview {
+    background-color:#fff;
+    border-top-width: 2px;
+    border-right-width: 4px;
+    border-bottom-width: 4px;
+    border-left-width: 2px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    border-color: #dbdbdb;
+}
+.cardStyle {
+    background-color: #3489db;
+    color: #fff;
+}
+.header{
+    font-size: 16px;
+}
+
+.subheader{
+    font-size: 12px;
+}
+
+.body{
+    font-size: 14px;
+}
+
+ActionBar NavigationButton {
+    opacity: 0.7;
+}
+.ns_button{
+   background-color:#913996;
+   color:#f5f5f5;
+}
+//font 
+//font size
+//font style
+//font color
