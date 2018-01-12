@@ -1,0 +1,97 @@
+
+    <ActionBar class="action-bar">
+        <NavigationButton text="Go Back" icon="res://ic_home_arrow" (tap)="onNavBtnTap()"></NavigationButton>
+        <Label class="action-bar-title" text="myFeed Filter"></Label>
+    </ActionBar>
+    
+       
+        
+    <GridLayout #page class="page page-content" tkMainContent rows="auto,*,60" style = "background-color:#f5f5f5;" >
+        
+        <ActivityIndicator row="0" [busy]="isLoading" [visibility]="isLoading ? 'visible' : 'collapse'" horizontalAlignment="center" verticalAlignment="center"></ActivityIndicator>   
+                      
+        <ScrollView orientation="vertical" row = "1" [visibility]="isLoading ? 'collapse' : 'visible'">
+                        
+            <StackLayout orientation="vertical" >       
+                <GridLayout class = "cardview m-x-10 m-t-10" rows="auto,auto,auto">
+                    <TextView class="body Roboto-Regular m-y-5" hint="Search By Keyword" [(ngModel)]="feedFilterInfo.SearchKeyword" textWrap="true" row = "0"></TextView>
+                    
+                    <GridLayout  row = "1" rows="auto" cols ="*,*">
+                        <StackLayout orientation = "vertical" class="feedType" row="0" col = "0"  width="50%" horizontalAlignment="left">
+                            <label class="subheader Roboto-Medium m-l-5 m-t-5" text = "Feed Type:"></label>
+                            <DropDown class="body Roboto-Regular m-l-5 m-b-5" id = "dropDownFeedType" backroundColor="red" colSpan="2"
+                             (selectedIndexChanged)="onchangeFeedType($event)"
+                            (opened)="onopen()" (closed)="onclose()" name='ddlfeedtype'></DropDown>
+                        </StackLayout> 
+    
+                        <StackLayout orientation = "vertical" class="feedCategory" row="0" col = "1" width="50%" horizontalAlignment="right">
+                            <label class="subheader Roboto-Medium m-l-5 m-t-5" text = "Feed Category:"></label>
+                            <DropDown class="body Roboto-Regular m-l-5 m-b-5" id = "dropDownFeedCategory" backroundColor="red" colSpan="2"
+                            (selectedIndexChanged)="onchangeFeedCategory($event)" name='ddlfeedcategory'
+                            (opened)="onopen()" (closed)="onclose()"></DropDown>
+                        </StackLayout> 
+                    </GridLayout>
+
+
+                    <GridLayout row = "2" rows="auto,auto,auto">
+                            <label class = "body Roboto-Regular m-l-5 m-t-5" text = "Posted Date:" row="0"></label>
+                           
+                            <GridLayout row = "1" rows = "auto" columns="auto,auto,auto">
+                                <label class="subheader Roboto-Medium m-l-5" text = "From:" row="0" col="0" width="45%" ></label>
+                                <label class="subheader Roboto-Medium m-l-5" text = "->" row="0" col="1" ></label>
+                                <label class="subheader Roboto-Medium m-l-5" text = "To:" row="0" col="2" width="45%" ></label>
+                            </GridLayout> 
+
+                            <GridLayout  row = "2" rows="auto" columns ="*,auto,*,auto" class="m-b-10">
+                                <label class="body Roboto-Regular m-l-5 m-t-5" row="0" col = "0" [text] = "postedDateFrom" textWrap="true"></label>
+                                <Image src="res://ic_calendar" row="0" col = "1" height="25" width="25"  class="img  m-r-15" (tap)="callDatePicker('postedFrom')" ></Image>
+                               
+                                <label class="body Roboto-Regular m-l-10 m-t-5" row="0" col = "2" [text] = "postedDateTo"  textWrap="true"></label>
+                                <Image src="res://ic_calendar" height="25" row="0" col = "3" width="25"  class="img  m-r-15" (tap)="callDatePicker('postedTo')"></Image>
+                            </GridLayout>
+                    </GridLayout>
+                </GridLayout>
+
+                <GridLayout class = "cardview m-x-10 m-t-10" rows="auto,auto,auto,auto,auto">
+                        <label class="body Roboto-Regular m-l-5" text = "Status" row="0"></label>
+                       
+                        <GridLayout row = "1" rows = "auto,auto" >
+                            <StackLayout class="m-l-5" orientation = "horizontal" row="0"  horizontalAlignment="left">
+                                <CheckBox id = "chkPost" text="Post" checked="true" fillColor="#913996"></CheckBox>
+                            </StackLayout>
+                            <StackLayout class=" m-l-5" orientation = "horizontal" row="0" horizontalAlignment="center">
+                                <CheckBox id = "chkUnpost" text="Unpost" checked="true" fillColor="#913996"></CheckBox>
+                            </StackLayout>
+                            <StackLayout class="m-l-5" orientation = "horizontal" row="0"  horizontalAlignment="right">
+                                <CheckBox id = "chkArchive" text="Archive" checked="true" fillColor="#913996"></CheckBox>
+                            </StackLayout>
+                            <StackLayout class="hr-light m-t-8" row="1" ></StackLayout> 
+                        </GridLayout> 
+
+                        <label class = "body Roboto-Regular m-l-5 m-t-5" text = "Created Date:" row="2"></label>                                          
+
+                        <GridLayout row = "3" rows = "auto" columns="auto,auto,auto" class=" m-t-8">
+                            <label class="subheader Roboto-Medium m-l-5" text = "From:" row="0" col="0" width="45%" ></label>
+                            <label class="subheader Roboto-Medium m-l-5" text = "->" row="0" col="1" ></label>
+                            <label class="subheader Roboto-Medium m-l-5" text = "To:" row="0" col="2" width="45%" ></label>
+                        </GridLayout> 
+
+                        <GridLayout  row = "4" rows="auto" columns ="*,auto,*,auto" class="m-b-10">
+                          
+                            <label class="body Roboto-Regular m-l-5 m-t-5" row="0" col = "0" [text] = "createdDateFrom" textWrap="true"></label>
+                            <Image src="res://ic_calendar" row="0" col = "1" height="25" width="25"  class="img  m-r-15" (tap)="callDatePicker('createdFrom')"></Image>
+                           
+                            <label class="body Roboto-Regular m-l-10 m-t-5" row="0" col = "2" [text] = "createdDateTo"  textWrap="true"></label>
+                            <Image src="res://ic_calendar" height="25" row="0" col = "3" width="25"  class="img  m-r-15" (tap)="callDatePicker('createdTo')"></Image>
+                            
+                        </GridLayout>
+                </GridLayout>
+            </StackLayout>
+    
+        </ScrollView>
+
+        <StackLayout row="2" orientation="horizontal" [visibility]="isLoading ? 'collapse' : 'visible'">
+            <Button class="body Roboto-Medium" text = "RESET" textWrap="true" width="50%" textAlignment="center" horizontalAlignment="left" style="background-color:#363437;color:#f5f5f5;"></Button>
+            <Button class="body Roboto-Medium" text= "SEARCH"textWrap="true" width="50%" (tap) = "onSearch()" textAlignment="center" horizontalAlignment="right" style="background-color:#913996;color:#f5f5f5;"></Button>
+        </StackLayout>
+    </GridLayout> 

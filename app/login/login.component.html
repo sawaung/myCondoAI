@@ -1,0 +1,22 @@
+<ActionBar class="action-bar">
+  <Label class="action-bar-title" text="Home"></Label>
+</ActionBar>
+
+<StackLayout #container>
+    <Image id = "logo"src="res://ic_logo" stretch="none" horizontalAlignment="center"></Image>
+
+    <label text = "User Login" id="lblUserLogin" horizontalAlignment="center"></label>
+   
+    <TextField id="username" hint="Username" keyboardType="email" autocorrect="false" autocapitalizationType="none" [(ngModel)]="userLogin.User_Name"></TextField>
+    <TextField id="password" hint="Password" secure="true" [(ngModel)]="userLogin.Password"></TextField>
+  
+    <Button text="Login" class = "submit-button"  (tap)="UserLogin()"></Button>
+    <!--<Button text="cancel" class = "submit-button"  (tap)="getContent()"></Button>
+
+    <WebView #webView height= "400"></WebView>  -->
+
+    <CheckBox id = "chkAlwaysRemember" text="Always Remember" checked="false" fillColor="#913996"  horizontalAlignment="center"></CheckBox>
+
+  </StackLayout>
+
+  

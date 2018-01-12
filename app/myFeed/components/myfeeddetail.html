@@ -1,0 +1,58 @@
+
+<ActionBar class="action-bar">
+    <NavigationButton text="Go Back" android.systemIcon="ic_menu_back" (tap)="onNavBtnTap()"></NavigationButton>
+        
+    <ActionItem (tap)="onEditFeed()" [visibility]="EDIT_FEED ? 'visible' : 'collapse'"
+        ios.systemIcon="2" ios.position="left"
+        android.systemIcon="ic_menu_edit" android.position="actionBar"></ActionItem>
+
+    <ActionItem tap="onDelete" *ngIf="feedInfoDetail.isBlocked == 0 && IsAccess('DELETE_FEED')" (tap)="changeFeedStatus(feedInfoDetail.Feed_Id,'ARCHIVE')"
+        ios.systemIcon="16" ios.position="right"
+        text="Archive" android.position="popup"></ActionItem>
+
+    <ActionItem tap="onPost" *ngIf="feedInfoDetail.Post_Status == 0 && IsAccess('POST_FEED')" (tap)="changeFeedStatus(feedInfoDetail.Feed_Id,'POST')"
+        text="Post" android.position="popup"></ActionItem>
+
+    <ActionItem tap="onUnpost" *ngIf="feedInfoDetail.Post_Status == 1 && IsAccess('UNPOST_FEED')" (tap)="changeFeedStatus(feedInfoDetail.Feed_Id,'UNPOST')"
+        text="Unpost" android.position="popup"></ActionItem>
+
+    <ActionItem tap="onNotify" *ngIf="feedInfoDetail.Post_Status == 1 && feedInfoDetail.isBlocked == 0 && IsAccess('POST_FEED')" (tap)="changeFeedStatus(feedInfoDetail.Feed_Id,'NOTIFY')"
+        text="Notify" android.position="popup"></ActionItem>  
+        
+    <ActionItem tap="onPostAndNotify" *ngIf="feedInfoDetail.Post_Status == 0 && IsAccess('POST_FEED')" (tap)="changeFeedStatus(feedInfoDetail.Feed_Id,'NOTIFY')"
+        text="Post And Notify" android.position="popup"></ActionItem> 
+
+    <Label class="action-bar-title" text="myFeed detail"></Label>
+
+</ActionBar>
+
+    <ScrollView orientation = "vertical" >      
+           <StackLayout orientation="vertical" *ngIf="feedInfoDetail" > 
+                           
+                   <StackLayout orientation="vertical"  class = "m-x-10 m-t-10">
+                       <Label id="feed_category_name" [text]="feedInfoDetail.Feed_Category_Name"></Label>
+                       <Label class="h3" id="feed_title" [text]="feedInfoDetail.Title"></Label>
+                       
+                       <Label id="feed_type_name" [text]="feedInfoDetail.Posted_Date | date:'medium'" class = "m-b-10"></Label>
+                   </StackLayout> 
+
+                   <StackLayout orientation="vertical" >
+                        <WebView width="100%" ios:height="300" #myWebView [src]="description" ></WebView>   
+                    </StackLayout>
+
+                   <StackLayout orientation="vertical" >
+                   
+                       <RadListView [items]="feedInfoDetail.MC_Feed_Files" width="100%" ios:height="{{radListViewHeight}}">
+                            <ListViewGridLayout tkListViewLayout scrollDirection="Vertical" ios:itemHeight="150" spanCount="2"></ListViewGridLayout> 
+                            <ng-template tkListItemTemplate let-item="item" >
+                                    <GridLayout rows="*" columns="auto">
+                                       <StackLayout orientation="horizontal">
+                                           <Image [src]="item.Small_File_Path" stretch="aspectFill" width = "130" height = "130" class = "btn btn-rounded-sm" (tap) = "onImageTap(item)"></Image>
+                           
+                                       </StackLayout>
+                                   </GridLayout>
+                               </ng-template>
+                           </RadListView>
+                   </StackLayout>
+           </StackLayout>
+        </ScrollView> 
